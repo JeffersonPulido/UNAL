@@ -16,14 +16,55 @@ export const useForm = (valoresDefecto, validaciones) => {
         })
     }
 
+    const handleBlur = (element) => {
+        handleChanges(element)
+        setErrores(validaciones(form))
+    }
+
     const handleSubmit = (element) => {
         element.preventDefault();
-        console.log(form)
-        //TODO: Validar errores vacios, realizar validaciones con onBlur y con onSubmit, crear funcion handleOnBlur
+        setErrores(validaciones(form))
+        
+
+        if (Object.keys(errores).length === 0) {
+            setCargando(true)
+            try {
+                // const status = axios.post('/api/falso/usuario', {
+                //     body: form
+                // })
+
+                // if (status.statusCode === 201) {
+                //     console.log('Se ha guardado de manera correcta')
+                //     setCargando(false)
+                // }else{
+                //     console.log(status.statusDescription)
+                //     return;
+                // }
+
+                setBd(form)
+
+                setTimeout(() => {
+                    setCargando(false)
+                    setRespuesta(true)
+                }, 2500)
+
+            } catch (error) {
+                setRespuesta(false)
+                console.error(error)
+            }
+        }else{
+            setRespuesta(false)
+            setCargando(false)
+        }
     }
 
     return {
         form,
+        errores,
+        cargando,
+        respuesta,
+        bd,
+        handleBlur,
         handleChanges,
         handleSubmit
     }
