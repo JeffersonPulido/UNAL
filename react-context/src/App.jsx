@@ -1,5 +1,6 @@
 import './App.css'
 import { MyPage } from './components/MyPage'
+import { MyPageContext } from './components/MyPageContext'
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
      <h1>App SIN context</h1>
      <MyPage/>
      <h1>App CON context</h1>
+     <MyPageContext/>
     </>
   )
 }
